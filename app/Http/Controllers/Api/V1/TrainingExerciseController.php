@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 
-class ClassDateController extends Controller
+class TrainingExerciseController extends Controller
 {
     /**
      * Display a listing of the resource.

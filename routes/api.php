@@ -2,137 +2,130 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InstructorController;
-use App\Http\Controllers\ClassController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\Api\V1\UserController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Class
-Route::get('/classes', 'ClassController@index');
-Route::post('/classes', 'ClassController@create');
-Route::post('/classes', 'ClassController@store');
-Route::get('/classes/{id}', 'ClassController@show');
-Route::put('/classes/{id}', 'ClassController@edit');
-Route::put('/classes/{id}', 'ClassController@update');
-Route::delete('/classes/{id}', 'ClassController@destroy');
+// ============================ ROTAS PARA A VERSÃO 1 DA API ============================
+Route::prefix('v1')->group(function() {
 
-//ClassDate
-Route::get('/classesDates', 'ClassDateController@index');
-Route::post('/classesDates', 'ClassDateController@create');
-Route::post('/classesDates', 'ClassDateController@store');
-Route::get('/classesDates/{id}', 'ClassDateController@show');
-Route::put('/classesDates/{id}', 'ClassDateController@edit');
-Route::put('/classesDates/{id}', 'ClassDateController@update');
-Route::delete('/classesDates/{id}', 'ClassDateController@destroy');
+    // ============================ Class ============================
+    Route::get('/classes', [ClassController::class, 'index']);
+    Route::post('/classes', [ClassController::class, 'create']);
+    Route::post('/classes', [ClassController::class, 'store']);
+    Route::get('/classes/{id}', [ClassController::class, 'show']);
+    Route::put('/classes/{id}', [ClassController::class, 'edit']);
+    Route::put('/classes/{id}', [ClassController::class, 'update']);
+    Route::delete('/classes/{id}', [ClassController::class, 'destroy']);
 
-//Exercise
-Route::get('/exercises', 'ExerciseController@index');
-Route::post('/exercises', 'ExerciseController@create');
-Route::post('/exercises', 'ExerciseController@store');
-Route::get('/exercises/{id}', 'ExerciseController@show');
-Route::put('/exercises/{id}', 'ExerciseController@edit');
-Route::put('/exercises/{id}', 'ExerciseController@update');
-Route::delete('/exercises/{id}', 'ExerciseController@destroy');
+    // ============================ ClassDate ============================
+    Route::get('/classesDates', [ClassDateController::class, 'index']);
+    Route::post('/classesDates', [ClassDateController::class, 'create']);
+    Route::post('/classesDates', [ClassDateController::class, 'store']);
+    Route::get('/classesDates/{id}', [ClassDateController::class, 'show']);
+    Route::put('/classesDates/{id}', [ClassDateController::class, 'edit']);
+    Route::put('/classesDates/{id}', [ClassDateController::class, 'update']);
+    Route::delete('/classesDates/{id}', [ClassDateController::class, 'destroy']);
 
-//GeneralAssessment
-Route::get('/generalAssessments', 'GeneralAssessmentController@index');
-Route::post('/generalAssessments', 'GeneralAssessmentController@create');
-Route::post('/generalAssessments', 'GeneralAssessmentController@store');
-Route::get('/generalAssessments/{id}', 'GeneralAssessmentController@show');
-Route::put('/generalAssessments/{id}', 'GeneralAssessmentController@edit');
-Route::put('/generalAssessments/{id}', 'GeneralAssessmentController@update');
-Route::delete('/generalAssessments/{id}', 'GeneralAssessmentController@destroy');
+    // ============================ Exercise ============================
+    Route::get('/exercises', [ExerciseController::class, 'index']);
+    Route::post('/exercises', [ExerciseController::class, 'create']);
+    Route::post('/exercises', [ExerciseController::class, 'store']);
+    Route::get('/exercises/{id}', [ExerciseController::class, 'show']);
+    Route::put('/exercises/{id}', [ExerciseController::class, 'edit']);
+    Route::put('/exercises/{id}', [ExerciseController::class, 'update']);
+    Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy']);
 
-//Instructors
-Route::get('/instructors', 'InstructorController@index');
-Route::post('/instructors', 'InstructorController@create');
-Route::post('/instructors', 'InstructorController@store');
-Route::get('/instructors/{id}', 'InstructorController@show');
-Route::put('/instructors/{id}', 'InstructorController@edit');
-Route::put('/instructors/{id}', 'InstructorController@update');
-Route::delete('/instructors/{id}', 'InstructorController@destroy');
+    // ============================ GeneralAssessment ============================
+    Route::get('/generalAssessments', [GeneralAssessmentController::class, 'index']);
+    Route::post('/generalAssessments', [GeneralAssessmentController::class, 'create']);
+    Route::post('/generalAssessments', [GeneralAssessmentController::class, 'store']);
+    Route::get('/generalAssessments/{id}', [GeneralAssessmentController::class, 'show']);
+    Route::put('/generalAssessments/{id}', [GeneralAssessmentController::class, 'edit']);
+    Route::put('/generalAssessments/{id}', [GeneralAssessmentController::class, 'update']);
+    Route::delete('/generalAssessments/{id}', [GeneralAssessmentController::class, 'destroy']);
 
-//Lessons
-Route::get('/lessons', 'LessonController@index');
-Route::post('/lessons', 'LessonController@create');
-Route::post('/lessons', 'LessonController@store');
-Route::get('/lessons/{id}', 'LessonController@show');
-Route::put('/lessons/{id}', 'LessonController@edit');
-Route::put('/lessons/{id}', 'LessonController@update');
-Route::delete('/lessons/{id}', 'LessonController@destroy');
+    // ============================ Instructors ============================
+    Route::get('/instructors', [InstructorController::class, 'index']);
+    Route::post('/instructors', [InstructorController::class, 'create']);
+    Route::post('/instructors', [InstructorController::class, 'store']);
+    Route::get('/instructors/{id}', [InstructorController::class, 'show']);
+    Route::put('/instructors/{id}', [InstructorController::class, 'edit']);
+    Route::put('/instructors/{id}', [InstructorController::class, 'update']);
+    Route::delete('/instructors/{id}', [InstructorController::class, 'destroy']);
 
-//NotificationInstructor
-Route::get('/notificationsInstructors', 'NotificationInstructorController@index');
-Route::post('/notificationsInstructors', 'NotificationInstructorController@create');
-Route::post('/notificationsInstructors', 'NotificationInstructorController@store');
-Route::get('/notificationsInstructors/{id}', 'NotificationInstructorController@show');
-Route::put('/notificationsInstructors/{id}', 'NotificationInstructorController@edit');
-Route::put('/notificationsInstructors/{id}', 'NotificationInstructorController@update');
-Route::delete('/notificationsInstructors/{id}', 'NotificationInstructorController@destroy');
+    // ============================ Lessons ============================
+    Route::get('/lessons', [LessonController::class, 'index']);
+    Route::post('/lessons', [LessonController::class, 'create']);
+    Route::post('/lessons', [LessonController::class, 'store']);
+    Route::get('/lessons/{id}', [LessonController::class, 'show']);
+    Route::put('/lessons/{id}', [LessonController::class, 'edit']);
+    Route::put('/lessons/{id}', [LessonController::class, 'update']);
+    Route::delete('/lessons/{id}', [LessonController::class, 'destroy']);
 
-//NotificationStudents
-Route::get('/notificationsStudents', 'NotificationStudentController@index');
-Route::post('/notificationsStudents', 'NotificationStudentController@create');
-Route::post('/notificationsStudents', 'NotificationStudentController@store');
-Route::get('/notificationsStudents/{id}', 'NotificationStudentController@show');
-Route::put('/notificationsStudents/{id}', 'NotificationStudentController@edit');
-Route::put('/notificationsStudents/{id}', 'NotificationStudentController@update');
-Route::delete('/notificationsStudents/{id}', 'NotificationStudentController@destroy');
+    // ============================ NotificationInstructor ============================
+    Route::get('/notificationsInstructors', [NotificationInstructorController::class, 'index']);
+    Route::post('/notificationsInstructors', [NotificationInstructorController::class, 'create']);
+    Route::post('/notificationsInstructors', [NotificationInstructorController::class, 'store']);
+    Route::get('/notificationsInstructors/{id}', [NotificationInstructorController::class, 'show']);
+    Route::put('/notificationsInstructors/{id}', [NotificationInstructorController::class, 'edit']);
+    Route::put('/notificationsInstructors/{id}', [NotificationInstructorController::class, 'update']);
+    Route::delete('/notificationsInstructors/{id}', [NotificationInstructorController::class, 'destroy']);
 
-//Reports
-Route::get('/reports', 'ReportController@index');
-Route::post('/reports', 'ReportController@create');
-Route::post('/reports', 'ReportController@store');
-Route::get('/reports/{id}', 'ReportController@show');
-Route::put('/reports/{id}', 'ReportController@edit');
-Route::put('/reports/{id}', 'ReportController@update');
-Route::delete('/reports/{id}', 'ReportController@destroy');
+    // ============================ NotificationStudents ============================
+    Route::get('/notificationsStudents', [NotificationStudentController::class, 'index']);
+    Route::post('/notificationsStudents', [NotificationStudentController::class, 'create']);
+    Route::post('/notificationsStudents', [NotificationStudentController::class, 'store']);
+    Route::get('/notificationsStudents/{id}', [NotificationStudentController::class, 'show']);
+    Route::put('/notificationsStudents/{id}', [NotificationStudentController::class, 'edit']);
+    Route::put('/notificationsStudents/{id}', [NotificationStudentController::class, 'update']);
+    Route::delete('/notificationsStudents/{id}', [NotificationStudentController::class, 'destroy']);
 
-//Students
-Route::get('/students', 'StudentController@index');
-Route::post('/students', 'StudentController@create');
-Route::post('/students', 'StudentController@store');
-Route::get('/students/{id}', 'StudentController@show');
-Route::put('/students/{id}', 'StudentController@edit');
-Route::put('/students/{id}', 'StudentController@update');
-Route::delete('/students/{id}', 'StudentController@destroy');
+    // ============================ Reports ============================
+    Route::get('/reports', [ReportController::class, 'index']);
+    Route::post('/reports', [ReportController::class, 'create']);
+    Route::post('/reports', [ReportController::class, 'store']);
+    Route::get('/reports/{id}', [ReportController::class, 'show']);
+    Route::put('/reports/{id}', [ReportController::class, 'edit']);
+    Route::put('/reports/{id}', [ReportController::class, 'update']);
+    Route::delete('/reports/{id}', [ReportController::class, 'destroy']);
 
-//Trainings
-Route::get('/trainings', 'TrainingController@index');
-Route::post('/trainings', 'TrainingController@create');
-Route::post('/trainings', 'TrainingController@store');
-Route::get('/trainings/{id}', 'TrainingController@show');
-Route::put('/trainings/{id}', 'TrainingController@edit');
-Route::put('/trainings/{id}', 'TrainingController@update');
-Route::delete('/trainings/{id}', 'TrainingController@destroy');
+    // ============================ Students ============================
+    Route::get('/students', [StudentController::class, 'index']);
+    Route::post('/students', [StudentController::class, 'create']);
+    Route::post('/students', [StudentController::class, 'store']);
+    Route::get('/students/{id}', [StudentController::class, 'show']);
+    Route::put('/students/{id}', [StudentController::class, 'edit']);
+    Route::put('/students/{id}', [StudentController::class, 'update']);
+    Route::delete('/students/{id}', [StudentController::class, 'destroy']);
 
-//TrainingExercise
-Route::get('/trainingsExercises', 'TrainingExerciseController@index');
-Route::post('/trainingsExercises', 'TrainingExerciseController@create');
-Route::post('/trainingsExercises', 'TrainingExerciseController@store');
-Route::get('/trainingsExercises/{id}', 'TrainingExerciseController@show');
-Route::put('/trainingsExercises/{id}', 'TrainingExerciseController@edit');
-Route::put('/trainingsExercises/{id}', 'TrainingExerciseController@update');
-Route::delete('/trainingsExercises/{id}', 'TrainingExerciseController@destroy');
+    // ============================ Trainings ============================
+    Route::get('/trainings', [TrainingController::class, 'index']);
+    Route::post('/trainings', [TrainingController::class, 'create']);
+    Route::post('/trainings', [TrainingController::class, 'store']);
+    Route::get('/trainings/{id}', [TrainingController::class, 'show']);
+    Route::put('/trainings/{id}', [TrainingController::class, 'edit']);
+    Route::put('/trainings/{id}', [TrainingController::class, 'update']);
+    Route::delete('/trainings/{id}', [TrainingController::class, 'destroy']);
 
-//Users
-Route::get('/users', 'UserController@index');
-Route::post('/users', 'UserController@create');
-Route::post('/users', 'UserController@store');
-Route::get('/users/{id}', 'UserController@show');
-Route::put('/users/{id}', 'UserController@edit');
-Route::put('/users/{id}', 'UserController@update');
-Route::delete('/users/{id}', 'UserController@destroy');
+    // ============================ TrainingExercise ============================
+    Route::get('/trainingsExercises', [TrainingExerciseController::class, 'index']);
+    Route::post('/trainingsExercises', [TrainingExerciseController::class, 'create']);
+    Route::post('/trainingsExercises', [TrainingExerciseController::class, 'store']);
+    Route::get('/trainingsExercises/{id}', [TrainingExerciseController::class, 'show']);
+    Route::put('/trainingsExercises/{id}', [TrainingExerciseController::class, 'edit']);
+    Route::put('/trainingsExercises/{id}', [TrainingExerciseController::class, 'update']);
+    Route::delete('/trainingsExercises/{id}', [TrainingExerciseController::class, 'destroy']);
+
+    // ============================ Users ============================
+    Route::get('/users', [UserController::class, 'index']);
+    // Route::post('/users', [UserController::class, 'create']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'edit']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+});
