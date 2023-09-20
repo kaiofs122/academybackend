@@ -3,62 +3,88 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\ClassModel;
 
 class ClassController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // ============== RETORNA TODAS AS AULAS ==============
     public function index()
     {
-        //
+        // Retorno de todas as informações das aulas
+        return ClassModel::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /*
     public function create()
     {
         //
     }
+    */
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // ============== SALVA UMA NOVA AULA ==============
     public function store(Request $request)
     {
-        //
+        $class = $request->all();
+        $class = ClassModel::create($class);
+        if ($class) {
+            return response()->json([
+                "message" => 'Aula criada com sucesso',
+                "status" => 200,
+                "data" => $class
+            ], 200);
+        }
+        return $this->error('Erro ao criar aula', 400);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // ============== EXIBE UMA AULA PELO ID ==============
     public function show(string $id)
     {
-        //
+        $class = ClassModel::find($id);
+        if ($class) {
+            return response()->json([
+                "message" => 'Aula obtida com sucesso',
+                "status" => 200,
+                "data" => $class
+            ], 200);
+        }
+        return $this->error('Erro ao obter dados da aula', 400);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /*
     public function edit(string $id)
     {
         //
     }
+    */
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // ============== ATUALIZA UMA AULA PELO ID ==============
     public function update(Request $request, string $id)
     {
-        //
+        $class = ClassModel::find($id)->update([
+            'id_lesson' => $request->id_lesson,
+            'id_student' => $request->id_student
+        ]);
+        if ($class) {
+            return response()->json([
+                "message" => 'Aula atualizada com sucesso',
+                "status" => 200,
+                "data" => $request->all()
+            ], 200);
+        }
+        return $this->error('Erro ao atualizar aula', 400);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // ============== DELETA UMA AULA PELO ID ==============
     public function destroy(string $id)
     {
-        //
+        $class = ClassModel::find($id)->delete();
+        if ($class) {
+            return response()->json([
+                "message" => 'Aula deletada com sucesso',
+                "status" => 200
+            ], 200);
+        }
+        return $this->error('Erro ao remover aula', 400);
     }
 }

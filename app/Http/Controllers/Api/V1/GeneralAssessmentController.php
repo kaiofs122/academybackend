@@ -2,63 +2,89 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
+use IllUMAinate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Model\GeneralAssessment;
 
 class GeneralAssessmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // ============== RETORNA TODOS AS AVALIAÇÕES ==============
     public function index()
     {
-        //
+        // Retorno de todas as informações das avaliações
+        return GeneralAssessment::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /*
     public function create()
     {
         //
     }
+    */
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // ============== SALVA UMA NOVA AVALIAÇÃO ==============
     public function store(Request $request)
     {
-        //
+        $generalAssessment = $request->all();
+        $generalAssessment = GeneralAssessment::create($generalAssessment);
+        if ($generalAssessment) {
+            return response()->json([
+                "message" => 'Avaliação criada com sucesso',
+                "status" => 200,
+                "data" => $generalAssessment
+            ], 200);
+        }
+        return $this->error('Erro ao criar avaliação', 400);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // ============== EXIBE UMA AVALIAÇÃO PELO ID ==============
     public function show(string $id)
     {
-        //
+        $generalAssessment = GeneralAssessment::find($id);
+        if ($generalAssessment) {
+            return response()->json([
+                "message" => 'Avaliação obtida com sucesso',
+                "status" => 200,
+                "data" => $generalAssessment
+            ], 200);
+        }
+        return $this->error('Erro ao obter dados da avaliação', 400);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /*
     public function edit(string $id)
     {
         //
     }
+    */
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // ============== ATUALIZA UMA AVALIAÇÃO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        //
+        $generalAssessment = GeneralAssessment::find($id)->update([
+            'assessment_count' => $request->assessment_count,
+            'average_stars' => $request->average_stars
+        ]);
+        if ($generalAssessment) {
+            return response()->json([
+                "message" => 'Avaliação atualizada com sucesso',
+                "status" => 200,
+                "data" => $request->all()
+            ], 200);
+        }
+        return $this->error('Erro ao atualizar avaliação', 400);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // ============== DELETA UMA AVALIAÇÃO PELO ID ==============
     public function destroy(string $id)
     {
-        //
+        $generalAssessment = GeneralAssessment::find($id)->delete();
+        if ($generalAssessment) {
+            return response()->json([
+                "message" => 'Avaliação deletada com sucesso',
+                "status" => 200
+            ], 200);
+        }
+        return $this->error('Erro ao remover avaliação', 400);
     }
 }

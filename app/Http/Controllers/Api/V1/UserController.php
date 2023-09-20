@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // ============== RETORNA TODOS OS USUÁRIOS ==============
     public function index()
     {
         // Retorno de todas as informações dos usuários
@@ -21,17 +19,14 @@ class UserController extends Controller
         // return User::select('name as NomeUsuario', 'email as EmailUsuario')->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /*
     public function create()
     {
         //
     }
+    */
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // ============== SALVA UM NOVO USUÁRIO ==============
     public function store(Request $request)
     {
         $user = $request->all();
@@ -44,38 +39,58 @@ class UserController extends Controller
                 "data" => $user
             ], 200);
         }
-        return $this->error('Erro ao criar usuario', 400);
+        return $this->error('Erro ao criar usuário', 400);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // ============== EXIBE UM USUÁRIO PELO ID ==============
     public function show(string $id)
     {
-        //
+        $user = User::find($id);
+        if ($user) {
+            return response()->json([
+                "message" => 'Usuário obtido com sucesso',
+                "status" => 200,
+                "data" => $user
+            ], 200);
+        }
+        return $this->error('Erro ao obter dados do usuário', 400);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /*
     public function edit(string $id)
     {
         //
     }
+    */
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // ============== ATUALIZA UM USUÁRIO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id)->update([
+            'id' => $request->id,
+            'user_email' => $request->user_email,
+            'user_password' => $request->user_password
+        ]);
+        if ($user) {
+            return response()->json([
+                "message" => 'Usuário atualizado com sucesso',
+                "status" => 200,
+                "data" => $request->all()
+            ], 200);
+        }
+        return $this->error('Erro ao atualizar usuário', 400);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // ============== DELETA UM USUÁRIO PELO ID ==============
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id)->delete();
+        if ($user) {
+            return response()->json([
+                "message" => 'Usuário deletado com sucesso',
+                "status" => 200
+            ], 200);
+        }
+        return $this->error('Erro ao remover usuário', 400);
     }
 }
