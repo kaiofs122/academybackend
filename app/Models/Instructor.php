@@ -10,20 +10,20 @@ class Instructor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'cpf',
-        'telephone',
-        'email',
-        'date_birth',
-        'time_arrival',
-        'time_exit',
-        'road',
-        'neighborhood',
-        'city',
-        'zip-code',
-        'state',
+        "instructor_name",
+        "instructor_cpf",
+        "instructor_telephone",
+        "instructor_email",
+        "instructor_date_birth",
+        "instructor_time_arrival",
+        "instructor_time_exit",
+        "instructor_address",
+        "instructor_address_number",
+        "instructor_city",
+        "instructor_zip_code",
+        "instructor_state",
     ];
 
     // Nome da tabela
-    protected $table = 'instructors';
+    protected $table = "instructors";
 }

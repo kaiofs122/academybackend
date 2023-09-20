@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+
+use App\Http\Controllers\Controller;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -28,6 +31,17 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+        $student = $request->all();
+        $student['password'] = bcrypt($request->password);
+        $student = Student::create($student);
+        if ($student) {
+            return response()->json([
+                "message" => 'Usuário criado com sucesso',
+                "status" => 200,
+                "data" => $student
+            ], 200);
+        }
+        return $this->error('Erro ao criar usuario', 400);
     }
 
     /**

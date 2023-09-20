@@ -11,9 +11,9 @@ class ClassDate extends Model
 
     protected $fillable = [
         'id_class',
-        'date',
-        'start_time',
-        'duration'
+        'class_date',
+        'class_start_time',
+        'class_duration'
     ];
 
     // Nome da tabela

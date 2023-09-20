@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('instructors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('cpf');
-            $table->string('telephone');
-            $table->string('email');
-            $table->datetime('date_birth');
-            $table->datetime('time_arrival');
-            $table->datetime('time_exit');
-            $table->string('road');
-            $table->string('neighborhood');
-            $table->string('city');
-            $table->string('zip-code');
-            $table->string('state');
+            $table->string('instructor_name');
+            $table->string('instructor_cpf');
+            $table->string('instructor_telephone');
+            $table->string('instructor_email');
+            $table->string('instructor_date_birth');
+            $table->string('instructor_time_arrival');
+            $table->string('instructor_time_exit');
+            $table->string('instructor_address');
+            $table->string('instructor_address_number');
+            $table->string('instructor_city');
+            $table->string('instructor_zip_code');
+            $table->string('instructor_state');
             $table->timestamps();
         });
     }

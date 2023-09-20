@@ -11,8 +11,8 @@ class Lesson extends Model
 
     protected $fillable = [
         'id_instructor',
-        'description',
-        'max_students',
+        'lesson_description',
+        'lesson_max_students',
     ];
 
     // Nome da tabela

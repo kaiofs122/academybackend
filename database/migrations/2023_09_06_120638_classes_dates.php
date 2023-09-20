@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classes_dates', function (Blueprint $table) {
+        Schema::create('classes_hour', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_class');
             $table->foreign('id_class')->references('id')->on('classes');
-            $table->String('date');
-            $table->String('start_time');
-            $table->String('duration');
+            $table->String('class_hour');
+            $table->String('class_start_time');
+            $table->String('class_duration');
             $table->timestamps();
         });
     }

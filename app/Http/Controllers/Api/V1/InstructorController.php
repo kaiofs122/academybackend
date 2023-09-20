@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Instructor;
 
@@ -21,13 +22,13 @@ class InstructorController extends Controller
      */
     public function create()
     {
-        $instructor = new Instructor;
-        $instructor->name = $request->name;
-        $instructor->save();
+        // $instructor = new Instructor;
+        // $instructor->name = $request->name;
+        // $instructor->save();
     
-        return response()->json([
-            "message" => "student record created"
-        ], 201);
+        // return response()->json([
+        //     "message" => "student record created"
+        // ], 201);
     }
 
     /**
@@ -36,6 +37,16 @@ class InstructorController extends Controller
     public function store(Request $request)
     {
         //
+        $instructor = $request->all();
+        $instructor = Instructor::create($instructor);
+        if ($instructor) {
+            return response()->json([
+                "message" => 'Instrutor salvo com sucesso',
+                "status" => 200,
+                "data" => $instructor
+            ], 200);
+        }
+        return $this->error('Erro ao criar usuario', 400);
     }
 
     /**

@@ -13,26 +13,24 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->String('name');
-            $table->String('cpf');
-            $table->String('email');
-            $table->String('telephone');
-            $table->String('date_birth');
-            $table->String('presence');
-            $table->String('lack');
-            $table->String('weight');
-            $table->String('height');
-            $table->String('level');
-            $table->String('goal');
+            $table->String('student_name');
+            $table->String('student_cpf');
+            $table->String('student_email');
+            $table->String('student_telephone');
+            $table->String('student_date_birth');
+            $table->String('student_weight');
+            $table->String('student_height');
+            $table->String('student_level');
+            $table->String('student_goal');
             $table->unsignedBigInteger('id_instructor');
             $table->foreign('id_instructor')->references('id')->on('instructors');
-            $table->String('Frequency');
-            $table->String('url_picture');
-            $table->String('road');
-            $table->String('neighborhood');
-            $table->String('city');
-            $table->String('zip_code');
-            $table->String('state');
+            $table->String('student_frequency');
+            $table->String('student_photo_url');
+            $table->String('student_address');
+            $table->String('student_address_number');
+            $table->String('student_city');
+            $table->String('student_zip_code');
+            $table->String('student_state');
             $table->timestamps();
         });
     }

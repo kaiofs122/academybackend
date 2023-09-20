@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_instructor');
             $table->foreign('id_instructor')->references('id')->on('instructors');
-            $table->string('description');
-            $table->string('max_students');
+            $table->string('lesson_description');
+            $table->string('lesson_max_students');
             $table->timestamps();
         });
     }

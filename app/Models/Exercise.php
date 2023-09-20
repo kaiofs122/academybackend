@@ -10,9 +10,9 @@ class Exercise extends Model
     use HasFactory;
     
     protected $fillable = [
-        'name',
-        'description',
-        'url_picture',
+        'exercise_name',
+        'exercise_description',
+        'exercise_url_picture',
     ];
 
     // Nome da tabela
