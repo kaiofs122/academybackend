@@ -8,11 +8,18 @@ use App\Model\GeneralAssessment;
 
 class GeneralAssessmentController extends Controller
 {
-    // ============== RETORNA TODOS AS AVALIAÇÕES ==============
+    // ============== RETORNA TODAS AS AVALIAÇÕES ==============
     public function index()
     {
-        // Retorno de todas as informações das avaliações
-        return GeneralAssessment::all();
+        try {
+            // Retorno de todas as informações das avaliações
+            return GeneralAssessment::all();
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => 'Erro ao listar Avaliações: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
+        }
     }
 
     /*
@@ -25,30 +32,45 @@ class GeneralAssessmentController extends Controller
     // ============== SALVA UMA NOVA AVALIAÇÃO ==============
     public function store(Request $request)
     {
-        $generalAssessment = $request->all();
-        $generalAssessment = GeneralAssessment::create($generalAssessment);
-        if ($generalAssessment) {
+        $rules = ['assessment_count' => 'required',
+                'average_stars' => 'required',];
+        try {
+            $generalAssessmentData = $request->all();
+            $this->validate($request, $rules);
+            $generalAssessment = GeneralAssessment::create($generalAssessmentData);
+            if ($generalAssessment) {
+                return response()->json([
+                    "message" => 'Avaliação criada com sucesso',
+                    "status" => 200,
+                    "data" => $generalAssessment
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Avaliação criada com sucesso',
-                "status" => 200,
-                "data" => $generalAssessment
-            ], 200);
+                "message" => 'Erro ao criar Avaliação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao criar avaliação', 400);
     }
 
     // ============== EXIBE UMA AVALIAÇÃO PELO ID ==============
     public function show(string $id)
     {
-        $generalAssessment = GeneralAssessment::find($id);
-        if ($generalAssessment) {
+        try {
+            $generalAssessment = GeneralAssessment::find($id);
+            if ($generalAssessment) {
+                return response()->json([
+                    "message" => 'Avaliação obtida com sucesso',
+                    "status" => 200,
+                    "data" => $generalAssessment
+                ], 200);  
+            } 
+        } catch (\Exception $e){
             return response()->json([
-                "message" => 'Avaliação obtida com sucesso',
-                "status" => 200,
-                "data" => $generalAssessment
-            ], 200);
+                "message" => 'Erro ao exibir avaliação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao obter dados da avaliação', 400);
     }
 
     /*
@@ -61,30 +83,46 @@ class GeneralAssessmentController extends Controller
     // ============== ATUALIZA UMA AVALIAÇÃO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $generalAssessment = GeneralAssessment::find($id)->update([
-            'assessment_count' => $request->assessment_count,
-            'average_stars' => $request->average_stars
-        ]);
-        if ($generalAssessment) {
+        $rules = ['assessment_count' => 'required',
+                'average_stars' => 'required',];
+        try {
+            $this->validate($request, $rules);
+            $generalAssessment = GeneralAssessment::find($id)->update([
+                'assessment_count' => $request->assessment_count,
+                'average_stars' => $request->average_stars
+            ]);
+            if ($generalAssessment) {
+                return response()->json([
+                    "message" => 'Avaliação atualizada com sucesso',
+                    "status" => 200,
+                    "data" => $request->all()
+                ], 200);
+            }
+        } catch (\Exception $e){
             return response()->json([
-                "message" => 'Avaliação atualizada com sucesso',
-                "status" => 200,
-                "data" => $request->all()
-            ], 200);
+                "message" => 'Erro ao atualizar Avaliação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao atualizar avaliação', 400);
+
     }
 
     // ============== DELETA UMA AVALIAÇÃO PELO ID ==============
     public function destroy(string $id)
     {
-        $generalAssessment = GeneralAssessment::find($id)->delete();
-        if ($generalAssessment) {
+        try {
+            $generalAssessment = GeneralAssessment::find($id)->delete();
+            if ($generalAssessment) {
+                return response()->json([
+                    "message" => 'Avaliação deletada com sucesso',
+                    "status" => 200
+                ], 200);
+            }  
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Avaliação deletada com sucesso',
-                "status" => 200
-            ], 200);
+                "message" => 'Erro ao deletar Avaliação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao remover avaliação', 400);
     }
 }

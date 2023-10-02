@@ -20,7 +20,7 @@ class Student extends Model
         "student_level",
         "student_goal",
         "id_instructor",
-        "student_Frequency",
+        "student_frequency",
         "student_photo_url",
         "student_address",
         "student_address_number",

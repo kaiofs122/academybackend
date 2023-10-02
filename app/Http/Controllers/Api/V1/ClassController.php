@@ -11,8 +11,15 @@ class ClassController extends Controller
     // ============== RETORNA TODAS AS AULAS ==============
     public function index()
     {
-        // Retorno de todas as informações das aulas
-        return ClassModel::all();
+        try {
+            // Retorno de todas as informações das aulas
+            return ClassModel::all();
+        } catch (\Exception $e){
+            return response()->json([
+                "message" => 'Erro ao listar aulas: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
+        }
     }
 
     /*
@@ -25,30 +32,45 @@ class ClassController extends Controller
     // ============== SALVA UMA NOVA AULA ==============
     public function store(Request $request)
     {
-        $class = $request->all();
-        $class = ClassModel::create($class);
-        if ($class) {
+        $rules = ['id_lesson' => 'required',
+                'id_student' => 'required',];
+        try {
+            $classData = $request->all();
+            $this->validate($request, $rules);
+            $class = ClassModel::create($classData);
+            if ($class) {
+                return response()->json([
+                    "message" => 'Aula criada com sucesso',
+                    "status" => 200,
+                    "data" => $class
+                ], 200);
+            }
+        } catch (\Exception $e){
             return response()->json([
-                "message" => 'Aula criada com sucesso',
-                "status" => 200,
-                "data" => $class
-            ], 200);
+                "message" => 'Erro ao criar aula: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao criar aula', 400);
     }
 
     // ============== EXIBE UMA AULA PELO ID ==============
     public function show(string $id)
     {
-        $class = ClassModel::find($id);
-        if ($class) {
-            return response()->json([
-                "message" => 'Aula obtida com sucesso',
-                "status" => 200,
-                "data" => $class
+        try {
+            $class = ClassModel::find($id);
+            if ($class) {
+                return response()->json([
+                    "message" => 'Aula obtida com sucesso',
+                    "status" => 200,
+                    "data" => $class
             ], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => 'Erro ao exibir aula: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao obter dados da aula', 400);
     }
 
     /*
@@ -61,30 +83,45 @@ class ClassController extends Controller
     // ============== ATUALIZA UMA AULA PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $class = ClassModel::find($id)->update([
-            'id_lesson' => $request->id_lesson,
-            'id_student' => $request->id_student
-        ]);
-        if ($class) {
+        $rules = ['id_lesson' => 'required',
+                'id_student' => 'required',];
+        try {
+            $this->validate($request, $rules);
+            $class = ClassModel::find($id)->update([
+                'id_lesson' => $request->id_lesson,
+                'id_student' => $request->id_student
+            ]);
+            if ($class) {
+                return response()->json([
+                    "message" => 'Aula atualizada com sucesso',
+                    "status" => 200,
+                    "data" => $request->all()
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Aula atualizada com sucesso',
-                "status" => 200,
-                "data" => $request->all()
-            ], 200);
+                "message" => 'Erro ao atualizar aula: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao atualizar aula', 400);
     }
 
     // ============== DELETA UMA AULA PELO ID ==============
     public function destroy(string $id)
     {
-        $class = ClassModel::find($id)->delete();
-        if ($class) {
+        try {
+            $class = ClassModel::find($id)->delete();
+            if ($class) {
+                return response()->json([
+                    "message" => 'Aula deletada com sucesso',
+                    "status" => 200
+               ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Aula deletada com sucesso',
-                "status" => 200
-            ], 200);
+                "message" => 'Erro ao deletar aula: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao remover aula', 400);
     }
 }
