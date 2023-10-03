@@ -32,10 +32,12 @@ class ClassDateController extends Controller
     // ============== SALVA UMA NOVA AULA-DATA ==============
     public function store(Request $request)
     {
-        $rules = ['id_class' => 'required',
+        $rules = [
+                'id_class' => 'required',
                 'class_hour' => 'required',
                 'class_start_time' => 'required',
-                'class_duration' => 'required',];
+                'class_duration' => 'required',
+                ];
         try {
             $classDateData = $request->all();
             $this->validate($request, $rules);
@@ -86,10 +88,12 @@ class ClassDateController extends Controller
     // ============== ATUALIZA UMA AULA-DATA PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $rules = ['id_class' => 'required',
+        $rules = [
+                'id_class' => 'required',
                 'class_hour' => 'required',
                 'class_start_time' => 'required',
-                'class_duration' => 'required',];
+                'class_duration' => 'required',
+                ];
         try {
             $this->validate($request, $rules);
             $classDate = ClassDate::find($id)->update([

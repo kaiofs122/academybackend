@@ -32,8 +32,10 @@ class GeneralAssessmentController extends Controller
     // ============== SALVA UMA NOVA AVALIAÇÃO ==============
     public function store(Request $request)
     {
-        $rules = ['assessment_count' => 'required',
-                'average_stars' => 'required',];
+        $rules = [
+                'assessment_count' => 'required',
+                'average_stars' => 'required',
+                ];
         try {
             $generalAssessmentData = $request->all();
             $this->validate($request, $rules);
@@ -83,8 +85,10 @@ class GeneralAssessmentController extends Controller
     // ============== ATUALIZA UMA AVALIAÇÃO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $rules = ['assessment_count' => 'required',
-                'average_stars' => 'required',];
+        $rules = [
+                'assessment_count' => 'required',
+                'average_stars' => 'required',
+                ];
         try {
             $this->validate($request, $rules);
             $generalAssessment = GeneralAssessment::find($id)->update([

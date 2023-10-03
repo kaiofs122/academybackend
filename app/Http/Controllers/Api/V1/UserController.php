@@ -12,11 +12,17 @@ class UserController extends Controller
     // ============== RETORNA TODOS OS USUÁRIOS ==============
     public function index()
     {
-        // Retorno de todas as informações dos usuários
-        return User::all();
-
-        // Retorno de apenas nome e email dos usuários
-        // return User::select('name as NomeUsuario', 'email as EmailUsuario')->get();
+        try {
+            // Retorno de todas as informações dos usuários
+            return User::all();
+            // Retorno de apenas nome e email dos usuários
+            // return User::select('name as NomeUsuario', 'email as EmailUsuario')->get();
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => 'Erro ao exibir Usuários: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
+        }
     }
 
     /*
@@ -29,31 +35,49 @@ class UserController extends Controller
     // ============== SALVA UM NOVO USUÁRIO ==============
     public function store(Request $request)
     {
-        $user = $request->all();
-        $user['password'] = bcrypt($request->password);
-        $user = User::create($user);
-        if ($user) {
+        $rules = [
+                'id' => 'required',
+                'user_email' => 'required',
+                'user_password' => 'required',
+                ];
+        try {
+            $userData = $request->all();
+            $this->validate($request, $rules);
+            $userData['password'] = bcrypt($request->password);
+            $user = User::create($userData);
+            if ($user) {
+                return response()->json([
+                    "message" => 'Usuário criado com sucesso',
+                    "status" => 200,
+                    "data" => $user
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Usuário criado com sucesso',
-                "status" => 200,
-                "data" => $user
-            ], 200);
+                "message" => 'Erro ao salvar Usuário: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao criar usuário', 400);
     }
 
     // ============== EXIBE UM USUÁRIO PELO ID ==============
     public function show(string $id)
     {
-        $user = User::find($id);
-        if ($user) {
+        try {
+            $user = User::find($id);
+            if ($user) {
+                return response()->json([
+                    "message" => 'Usuário obtido com sucesso',
+                    "status" => 200,
+                    "data" => $user
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Usuário obtido com sucesso',
-                "status" => 200,
-                "data" => $user
-            ], 200);
+                "message" => 'Erro ao obter Usuário: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao obter dados do usuário', 400);
     }
 
     /*
@@ -66,31 +90,49 @@ class UserController extends Controller
     // ============== ATUALIZA UM USUÁRIO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $user = User::find($id)->update([
-            'id' => $request->id,
-            'user_email' => $request->user_email,
-            'user_password' => $request->user_password
-        ]);
-        if ($user) {
+        $rules = [
+            'id' => 'required',
+            'user_email' => 'required',
+            'user_password' => 'required',
+            ];
+        try {
+            $this->validate($request, $rules);
+            $user = User::find($id)->update([
+                'id' => $request->id,
+                'user_email' => $request->user_email,
+                'user_password' => bcrypt($request->password)
+            ]);
+            if ($user) {
+                return response()->json([
+                    "message" => 'Usuário atualizado com sucesso',
+                    "status" => 200,
+                    "data" => $request->all()
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Usuário atualizado com sucesso',
-                "status" => 200,
-                "data" => $request->all()
-            ], 200);
+                "message" => 'Erro ao atualizar Usuário: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao atualizar usuário', 400);
     }
 
     // ============== DELETA UM USUÁRIO PELO ID ==============
     public function destroy(string $id)
     {
-        $user = User::find($id)->delete();
-        if ($user) {
+        try {
+            $user = User::find($id)->delete();
+            if ($user) {
+                return response()->json([
+                    "message" => 'Usuário deletado com sucesso',
+                    "status" => 200
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Usuário deletado com sucesso',
-                "status" => 200
-            ], 200);
+                "message" => 'Erro ao deletar Usuário: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao remover usuário', 400);
     }
 }

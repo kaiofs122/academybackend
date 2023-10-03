@@ -11,8 +11,15 @@ class NotificationStudentController extends Controller
     // ============== RETORNA TODAS AS NOTIFICAÇÕES ==============
     public function index()
     {
-        // Retorno de todas as informações das notificações
-        return NotificationStudent::all();
+        try {
+            // Retorno de todas as informações das notificações
+            return NotificationStudent::all();
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => 'Erro ao exibir Notificações: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
+        }
     }
 
     /*
@@ -25,30 +32,47 @@ class NotificationStudentController extends Controller
     // ============== SALVA UMA NOVA NOTIFICAÇÃO ==============
     public function store(Request $request)
     {
-        $notificationStudent = $request->all();
-        $notificationStudent = NotificationStudent::create($notificationStudent);
-        if ($notificationStudent) {
+        $rules = [
+                'id_student' => 'required',
+                'text_notification' => 'required',
+                ];
+        try {
+            $notificationStudentData = $request->all();
+            $this->validate($request, $rules);
+            $notificationStudent = NotificationStudent::create($notificationStudentData);
+            if ($notificationStudent) {
+                return response()->json([
+                    "message" => 'Notificação criada com sucesso',
+                    "status" => 200,
+                    "data" => $notificationStudent
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Notificação criada com sucesso',
-                "status" => 200,
-                "data" => $notificationStudent
-            ], 200);
+                "message" => 'Erro ao salvar Notificação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao criar notificação', 400);
     }
 
     // ============== EXIBE UMA NOTIFICAÇÃO PELO ID ==============
     public function show(string $id)
     {
-        $notificationStudent = NotificationStudent::find($id);
-        if ($notificationStudent) {
+        try {
+            $notificationStudent = NotificationStudent::find($id);
+            if ($notificationStudent) {
+                return response()->json([
+                    "message" => 'Notificação obtida com sucesso',
+                    "status" => 200,
+                    "data" => $notificationStudent
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Notificação obtida com sucesso',
-                "status" => 200,
-                "data" => $notificationStudent
-            ], 200);
+                "message" => 'Erro ao exibir Notificação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao obter dados da notificação', 400);
     }
 
     /*
@@ -61,30 +85,47 @@ class NotificationStudentController extends Controller
     // ============== ATUALIZA UMA NOTIFICAÇÃO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $notificationStudent = NotificationStudent::find($id)->update([
-            'id_student' => $request->id_student,
-            'text_notification' => $request->text_notification
-        ]);
-        if ($notificationStudent) {
+        $rules = [
+                'id_student' => 'required',
+                'text_notification' => 'required',
+                ];
+        try {
+            $this->validate($request, $rules);
+            $notificationStudent = NotificationStudent::find($id)->update([
+                'id_student' => $request->id_student,
+                'text_notification' => $request->text_notification
+            ]);
+            if ($notificationStudent) {
+                return response()->json([
+                    "message" => 'Notificação atualizada com sucesso',
+                    "status" => 200,
+                    "data" => $request->all()
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Notificação atualizada com sucesso',
-                "status" => 200,
-                "data" => $request->all()
-            ], 200);
+                "message" => 'Erro ao atualizar Notificação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao atualizar notificação', 400);
     }
 
     // ============== DELETA UMA NOTIFICAÇÃO PELO ID ==============
     public function destroy(string $id)
     {
-        $notificationStudent = NotificationStudent::find($id)->delete();
-        if ($notificationStudent) {
+        try {
+            $notificationStudent = NotificationStudent::find($id)->delete();
+            if ($notificationStudent) {
+                return response()->json([
+                    "message" => 'Notificação deletada com sucesso',
+                    "status" => 200
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Notificação deletada com sucesso',
-                "status" => 200
-            ], 200);
+                "message" => 'Erro ao deletar Notificação: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao remover notificação', 400);
     }
 }

@@ -11,8 +11,15 @@ class TrainingExerciseController extends Controller
     // ============== RETORNA TODAS AS RELAÇÕES TREINO-EXERCÍCIO ==============
     public function index()
     {
-        // Retorno de todas as informações das relações treino-exercício
-        return TrainingExercise::all();
+        try {
+            // Retorno de todas as informações das relações treino-exercício
+            return TrainingExercise::all();
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => 'Erro ao exibir relações Treino-Exercício: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
+        }
     }
 
     /*
@@ -25,30 +32,49 @@ class TrainingExerciseController extends Controller
     // ============== SALVA UMA NOVA RELAÇÃO TREINO-EXERCÍCIO ==============
     public function store(Request $request)
     {
-        $trainingExercise = $request->all();
-        $trainingExercise = TrainingExercise::create($trainingExercise);
-        if ($trainingExercise) {
+        $rules = [
+                'id_training' => 'required',
+                'id_exercise' => 'required',
+                'training_repetitions' => 'required',
+                'training_series' => 'required',
+                ];
+        try {
+            $trainingExerciseData = $request->all();
+            $this->validate($request, $rules);
+            $trainingExercise = TrainingExercise::create($trainingExerciseData);
+            if ($trainingExercise) {
+                return response()->json([
+                    "message" => 'Relação Treino-Exercício criada com sucesso',
+                    "status" => 200,
+                    "data" => $trainingExercise
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relação treino-exercício criada com sucesso',
-                "status" => 200,
-                "data" => $trainingExercise
-            ], 200);
+                "message" => 'Erro ao salvar relação Treino-Exercício: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao criar relação treino-exercício', 400);
     }
 
     // ============== EXIBE UMA RELAÇÃO TREINO-EXERCÍCIO PELO ID ==============
     public function show(string $id)
     {
-        $trainingExercise = TrainingExercise::find($id);
-        if ($trainingExercise) {
+        try {
+            $trainingExercise = TrainingExercise::find($id);
+            if ($trainingExercise) {
+                return response()->json([
+                    "message" => 'Relação Treino-Exercício obtida com sucesso',
+                    "status" => 200,
+                    "data" => $trainingExercise
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relação treino-exercício obtida com sucesso',
-                "status" => 200,
-                "data" => $trainingExercise
-            ], 200);
+                "message" => 'Erro ao obter relação Treino-Exercício: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao obter dados da relação treino-exercício', 400);
     }
 
     /*
@@ -61,32 +87,51 @@ class TrainingExerciseController extends Controller
     // ============== ATUALIZA UMA RELAÇÃO TREINO-EXERCÍCIO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $trainingExercise = TrainingExercise::find($id)->update([
-            'id_training' => $request->id_training,
-            'id_exercise' => $request->id_exercise,
-            'training_repetitions' => $request->training_repetitions,
-            'training_series' => $request->training_series,
-        ]);
-        if ($trainingExercise) {
+        $rules = [
+            'id_training' => 'required',
+            'id_exercise' => 'required',
+            'training_repetitions' => 'required',
+            'training_series' => 'required',
+            ];
+        try {
+            $this->validate($request, $rules);
+            $trainingExercise = TrainingExercise::find($id)->update([
+                'id_training' => $request->id_training,
+                'id_exercise' => $request->id_exercise,
+                'training_repetitions' => $request->training_repetitions,
+                'training_series' => $request->training_series,
+            ]);
+            if ($trainingExercise) {
+                return response()->json([
+                    "message" => 'Relação Treino-Exercício atualizada com sucesso',
+                    "status" => 200,
+                    "data" => $request->all()
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relação treino-exercício atualizada com sucesso',
-                "status" => 200,
-                "data" => $request->all()
-            ], 200);
+                "message" => 'Erro ao atualizar relação Treino-Exercício: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao atualizar relação treino-exercício', 400);
     }
 
     // ============== DELETA UMA RELAÇÃO TREINO-EXERCÍCIO PELO ID ==============
     public function destroy(string $id)
     {
-        $trainingExercise = TrainingExercise::find($id)->delete();
-        if ($trainingExercise) {
+        try {
+            $trainingExercise = TrainingExercise::find($id)->delete();
+            if ($trainingExercise) {
+                return response()->json([
+                    "message" => 'Relação Treino-Exercício deletada com sucesso',
+                    "status" => 200
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relação treino-exercício deletada com sucesso',
-                "status" => 200
-            ], 200);
+                "message" => 'Erro ao deletar relação Treino-Exercício: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao remover relação treino-exercício', 400);
     }
 }

@@ -32,8 +32,10 @@ class ClassController extends Controller
     // ============== SALVA UMA NOVA AULA ==============
     public function store(Request $request)
     {
-        $rules = ['id_lesson' => 'required',
-                'id_student' => 'required',];
+        $rules = [
+                'id_lesson' => 'required',
+                'id_student' => 'required',
+                ];
         try {
             $classData = $request->all();
             $this->validate($request, $rules);
@@ -83,8 +85,10 @@ class ClassController extends Controller
     // ============== ATUALIZA UMA AULA PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $rules = ['id_lesson' => 'required',
-                'id_student' => 'required',];
+        $rules = [
+                'id_lesson' => 'required',
+                'id_student' => 'required',
+                ];
         try {
             $this->validate($request, $rules);
             $class = ClassModel::find($id)->update([

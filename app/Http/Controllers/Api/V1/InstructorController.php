@@ -32,7 +32,8 @@ class InstructorController extends Controller
     // ============== SALVA UM NOVO INSTRUTOR ==============
     public function store(Request $request)
     {
-        $rules = ['instructor_name' => 'required',
+        $rules = [
+                'instructor_name' => 'required',
                 'instructor_cpf' => 'required',
                 'instructor_telephone' => 'required',
                 'instructor_email' => 'required',
@@ -47,6 +48,7 @@ class InstructorController extends Controller
                 ];
         try {
             $instructorData = $request->all();
+            $this->validate($request, $rules);
             $instructor = Instructor::create($instructorData);
             if ($instructor) {
                 return response()->json([
@@ -93,7 +95,8 @@ class InstructorController extends Controller
     // ============== ATUALIZA UM INSTRUTOR PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $rules = ['instructor_name' => 'required',
+        $rules = [
+                'instructor_name' => 'required',
                 'instructor_cpf' => 'required',
                 'instructor_telephone' => 'required',
                 'instructor_email' => 'required',

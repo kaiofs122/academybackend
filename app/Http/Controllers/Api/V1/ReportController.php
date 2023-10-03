@@ -11,8 +11,15 @@ class ReportController extends Controller
     // ============== RETORNA TODOS OS RELATÓRIOS ==============
     public function index()
     {
-        // Retorno de todas as informações dos relatórios
-        return Report::all();
+        try {
+            // Retorno de todas as informações dos relatórios
+            return Report::all();
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => 'Erro ao exibir Relatórios: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
+        }
     }
 
     /*
@@ -25,30 +32,48 @@ class ReportController extends Controller
     // ============== SALVA UM NOVO RELATÓRIO ==============
     public function store(Request $request)
     {
-        $report = $request->all();
-        $report = Report::create($report);
-        if ($report) {
+        $rules = [
+                'id_instructor' => 'required',
+                'id_student' => 'required',
+                'description_reports' => 'required',
+                ];
+        try {
+            $reportData = $request->all();
+            $this->validate($request, $rules);
+            $report = Report::create($reportData);
+            if ($report) {
+                return response()->json([
+                    "message" => 'Relatório criado com sucesso',
+                    "status" => 200,
+                    "data" => $report
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relatório criado com sucesso',
-                "status" => 200,
-                "data" => $report
-            ], 200);
+                "message" => 'Erro ao salvar Relatório: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao criar relatório', 400);
     }
 
     // ============== EXIBE UM RELATÓRIO PELO ID ==============
     public function show(string $id)
     {
-        $report = Report::find($id);
-        if ($report) {
+        try {
+            $report = Report::find($id);
+            if ($report) {
+                return response()->json([
+                    "message" => 'Relatório obtido com sucesso',
+                    "status" => 200,
+                    "data" => $report
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relatório obtido com sucesso',
-                "status" => 200,
-                "data" => $report
-            ], 200);
+                "message" => 'Erro ao obter Relatório: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao obter dados do relatório', 400);
     }
 
     /*
@@ -61,31 +86,49 @@ class ReportController extends Controller
     // ============== ATUALIZA UM RELATÓRIO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $report = Report::find($id)->update([
-            'id_instructor' => $request->id_instructor,
-            'id_student' => $request->id_student,
-            'description_reports' => $request->description_reports
-        ]);
-        if ($report) {
+        $rules = [
+                'id_instructor' => 'required',
+                'id_student' => 'required',
+                'description_reports' => 'required',
+                ];
+        try {
+            $this->validate($request, $rules);
+            $report = Report::find($id)->update([
+                'id_instructor' => $request->id_instructor,
+                'id_student' => $request->id_student,
+                'description_reports' => $request->description_reports
+            ]);
+            if ($report) {
+                return response()->json([
+                    "message" => 'Relatório atualizado com sucesso',
+                    "status" => 200,
+                    "data" => $request->all()
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relatório atualizado com sucesso',
-                "status" => 200,
-                "data" => $request->all()
-            ], 200);
+                "message" => 'Erro ao atualizar Relatório: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao atualizar relatório', 400);
     }
 
     // ============== DELETA UM RELATÓRIO PELO ID ==============
     public function destroy(string $id)
     {
-        $report = Report::find($id)->delete();
-        if ($report) {
+        try {
+            $report = Report::find($id)->delete();
+            if ($report) {
+                return response()->json([
+                    "message" => 'Relatório deletado com sucesso',
+                    "status" => 200
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Relatório deletado com sucesso',
-                "status" => 200
-            ], 200);
+                "message" => 'Erro ao deletar Relatório: ' . $e->getMessage(),
+                "status" => 400
+            ], 400);
         }
-        return $this->error('Erro ao remover relatório', 400);
     }
 }

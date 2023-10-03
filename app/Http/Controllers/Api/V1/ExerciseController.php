@@ -32,7 +32,8 @@ class ExerciseController extends Controller
     // ============== SALVA UM NOVO EXERCÍCIO ==============
     public function store(Request $request)
     {
-        $rules = ['exercise_name' => 'required',
+        $rules = [
+                'exercise_name' => 'required',
                 'exercise_description' => 'required',
                 'exercise_url_tutorial' => 'required',
                 ];
@@ -85,7 +86,8 @@ class ExerciseController extends Controller
     // ============== ATUALIZA UM EXERCÍCIO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $rules = ['exercise_name' => 'required',
+        $rules = [
+                'exercise_name' => 'required',
                 'exercise_description' => 'required',
                 'exercise_url_tutorial' => 'required',
                 ];

@@ -33,7 +33,8 @@ class StudentController extends Controller
     // ============== SALVA UM NOVO ALUNO ==============
     public function store(Request $request)
     {
-        $rules = ['student_name' => 'required',
+        $rules = [
+            'student_name' => 'required',
             'student_cpf' => 'required',
             'student_email' => 'required',
             'student_telephone' => 'required',
@@ -50,7 +51,7 @@ class StudentController extends Controller
             'student_city' => 'required',
             'student_zip_code' => 'required',
             'student_state' => 'required',
-        ];
+            ];
         try {
             $studentData = $request->all();
             $this->validate($request, $rules);
@@ -97,7 +98,8 @@ class StudentController extends Controller
     // ============== ATUALIZA UM ALUNO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $rules = ['student_name' => 'required',
+        $rules = [
+            'student_name' => 'required',
             'student_cpf' => 'required',
             'student_email' => 'required',
             'student_telephone' => 'required',
@@ -114,7 +116,7 @@ class StudentController extends Controller
             'student_city' => 'required',
             'student_zip_code' => 'required',
             'student_state' => 'required',
-        ];
+            ];
         try {
             $this->validate($request, $rules);
             $student = Student::find($id)->update([

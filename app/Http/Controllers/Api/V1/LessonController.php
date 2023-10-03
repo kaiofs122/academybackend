@@ -8,11 +8,11 @@ use App\Models\Lesson;
 
 class LessonController extends Controller
 {
-    // ============== RETORNA TODAS AS LESSONS ==============
+    // ============== RETORNA TODAS AS LIÇÕES ==============
     public function index()
     {
         try {
-            // Retorno de todas as informações das lessons
+            // Retorno de todas as informações das lições
             return Lesson::all();   
         } catch (\Exception $e) {
             return response()->json([
@@ -29,17 +29,18 @@ class LessonController extends Controller
     }
     */
 
-    // ============== SALVA UMA NOVA LESSON ==============
+    // ============== SALVA UMA NOVA LIÇÃO ==============
     public function store(Request $request)
     {
-        $rules = ['id_instructor' => 'required',
+        $rules = [
+                'id_instructor' => 'required',
                 'lesson_description' => 'required',
                 'lesson_max_students' => 'required',
                 ];
         try {
-            $lesson = $request->all();
+            $lessonData = $request->all();
             $this->validate($request, $rules);
-            $lesson = Lesson::create($lesson);
+            $lesson = Lesson::create($lessonData);
             if ($lesson) {
                 return response()->json([
                     "message" => 'Lição criada com sucesso',
@@ -55,7 +56,7 @@ class LessonController extends Controller
         }
     }
 
-    // ============== EXIBE UMA LESSON PELO ID ==============
+    // ============== EXIBE UMA LIÇÃO PELO ID ==============
     public function show(string $id)
     {
         try {
@@ -82,10 +83,11 @@ class LessonController extends Controller
     }
     */
 
-    // ============== ATUALIZA UMA LESSON PELO ID ==============
+    // ============== ATUALIZA UMA LIÇÃO PELO ID ==============
     public function update(Request $request, string $id)
     {
-        $rules = ['id_instructor' => 'required',
+        $rules = [
+                'id_instructor' => 'required',
                 'lesson_description' => 'required',
                 'lesson_max_students' => 'required',
                 ];
@@ -111,11 +113,11 @@ class LessonController extends Controller
         }
     }
 
-    // ============== DELETA UMA LESSON PELO ID ==============
+    // ============== DELETA UMA LIÇÃO PELO ID ==============
     public function destroy(string $id)
     {
         try {
-           $lesson = Lesson::find($id)->delete();
+            $lesson = Lesson::find($id)->delete();
             if ($lesson) {
                 return response()->json([
                     "message" => 'Lição deletada com sucesso',
