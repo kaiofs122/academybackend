@@ -8,7 +8,7 @@ use App\Models\Training;
 class TrainingTest extends TestCase
 {
     /** @test */
-    public function check_if_user_columns_is_correct(): void
+    public function check_if_training_columns_is_correct(): void
     {
         $training = new Training;
 

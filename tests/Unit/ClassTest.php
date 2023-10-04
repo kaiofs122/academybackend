@@ -8,7 +8,7 @@ use App\Models\ClassModel;
 class ClassTest extends TestCase
 {
     /** @test */
-    public function check_if_user_columns_is_correct(): void
+    public function check_if_class_columns_is_correct(): void
     {
         $classModel= new ClassModel;
 

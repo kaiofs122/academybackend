@@ -8,7 +8,7 @@ use App\Models\Instructor;
 class InstructorTest extends TestCase
 {
     /** @test */
-    public function check_if_user_columns_is_correct(): void
+    public function check_if_instructor_columns_is_correct(): void
     {
         $instructor = new Instructor;
 

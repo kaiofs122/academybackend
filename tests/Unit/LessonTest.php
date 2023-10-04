@@ -8,7 +8,7 @@ use App\Models\Lesson;
 class LessonTest extends TestCase
 {
     /** @test */
-    public function check_if_user_columns_is_correct(): void
+    public function check_if_lesson_columns_is_correct(): void
     {
         $lesson = new Lesson;
 

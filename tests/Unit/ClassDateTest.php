@@ -8,7 +8,7 @@ use App\Models\ClassDate;
 class ClassDateTest extends TestCase
 {
     /** @test */
-    public function check_if_user_columns_is_correct(): void
+    public function check_if_classDate_columns_is_correct(): void
     {
         $classDate= new ClassDate;
 
