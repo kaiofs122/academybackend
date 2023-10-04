@@ -18,8 +18,6 @@ class ClassTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $classModel->getFillable());
-        
-        dd($arrayCompared);
 
         $this->assertEquals(0, count($arrayCompared));
     }

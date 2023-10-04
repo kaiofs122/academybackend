@@ -19,8 +19,6 @@ class LessonTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $lesson->getFillable());
-        
-        dd($arrayCompared);
 
         $this->assertEquals(0, count($arrayCompared));
     }

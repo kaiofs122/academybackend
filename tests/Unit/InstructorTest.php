@@ -28,8 +28,6 @@ class InstructorTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $instructor->getFillable());
-        
-        dd($arrayCompared);
 
         $this->assertEquals(0, count($arrayCompared));
     }

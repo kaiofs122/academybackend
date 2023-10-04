@@ -18,8 +18,6 @@ class NotificationInstructorTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $notificationInstructor->getFillable());
-        
-        dd($arrayCompared);
 
         $this->assertEquals(0, count($arrayCompared));
     }

@@ -20,9 +20,7 @@ class TrainingExerciseTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $trainingExercise->getFillable());
-        
-        dd($arrayCompared);
-
+       
         $this->assertEquals(0, count($arrayCompared));
     }
 }

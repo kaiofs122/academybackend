@@ -33,8 +33,6 @@ class StudentTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $student->getFillable());
-        
-        dd($arrayCompared);
 
         $this->assertEquals(0, count($arrayCompared));
     }

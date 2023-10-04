@@ -18,8 +18,6 @@ class GeneralAssessmentTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $generalAssessment->getFillable());
-        
-        dd($arrayCompared);
 
         $this->assertEquals(0, count($arrayCompared));
     }

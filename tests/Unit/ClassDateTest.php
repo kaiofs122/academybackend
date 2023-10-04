@@ -20,8 +20,6 @@ class ClassDateTest extends TestCase
         ];
 
         $arrayCompared = array_diff($expected, $classDate->getFillable());
-        
-        dd($arrayCompared);
 
         $this->assertEquals(0, count($arrayCompared));
     }
