@@ -36,7 +36,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $rules = [
-                'id' => 'required',
                 'user_email' => 'required',
                 'user_password' => 'required',
                 ];
@@ -91,14 +90,12 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $rules = [
-            'id' => 'required',
             'user_email' => 'required',
             'user_password' => 'required',
             ];
         try {
             $this->validate($request, $rules);
             $user = User::find($id)->update([
-                'id' => $request->id,
                 'user_email' => $request->user_email,
                 'user_password' => bcrypt($request->password)
             ]);

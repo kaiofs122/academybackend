@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use IllUMAinate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\GeneralAssessment;
+use App\Models\GeneralAssessment;
 
 class GeneralAssessmentController extends Controller
 {
