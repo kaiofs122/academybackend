@@ -17,7 +17,7 @@ class ExerciseTest extends TestCase
     }
 
     /** @test */
-    public function texercise_data_submission_test()
+    public function exercise_data_submission_test()
     {
         $data = [
             'exercise_name' => 'Exercício',
@@ -26,12 +26,6 @@ class ExerciseTest extends TestCase
         ];
 
         $response = $this->post('/api/v1/exercises', $data);
-
-        //$response->dumpHeaders();
-
-        //$response->dumpSession();
-
-        //$response->dump();
 
         $response->assertStatus(200);
     }

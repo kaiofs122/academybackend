@@ -12,7 +12,7 @@ class Exercise extends Model
     protected $fillable = [
         'exercise_name',
         'exercise_description',
-        'exercise_url_picture',
+        'exercise_url_tutorial',
     ];
 
     // Nome da tabela

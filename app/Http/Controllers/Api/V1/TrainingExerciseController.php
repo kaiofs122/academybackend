@@ -35,8 +35,8 @@ class TrainingExerciseController extends Controller
         $rules = [
                 'id_training' => 'required',
                 'id_exercise' => 'required',
-                'training_repetitions' => 'required',
-                'training_series' => 'required',
+                'training_exercises_repetitions' => 'required',
+                'training_exercises_series' => 'required',
                 ];
         try {
             $trainingExerciseData = $request->all();
@@ -90,16 +90,16 @@ class TrainingExerciseController extends Controller
         $rules = [
             'id_training' => 'required',
             'id_exercise' => 'required',
-            'training_repetitions' => 'required',
-            'training_series' => 'required',
+            'training_exercises_repetitions' => 'required',
+            'training_exercises_series' => 'required',
             ];
         try {
             $this->validate($request, $rules);
             $trainingExercise = TrainingExercise::find($id)->update([
                 'id_training' => $request->id_training,
                 'id_exercise' => $request->id_exercise,
-                'training_repetitions' => $request->training_repetitions,
-                'training_series' => $request->training_series,
+                'training_exercises_repetitions' => $request->training_repetitions,
+                'training_exercises_series' => $request->training_series,
             ]);
             if ($trainingExercise) {
                 return response()->json([

@@ -98,7 +98,7 @@ class ClassDateController extends Controller
             $this->validate($request, $rules);
             $classDate = ClassDate::find($id)->update([
                 'id_class' => $request->id_class,
-                'class_date' => $request->class_date,
+                'class_hour' => $request->class_hour,
                 'class_start_time' => $request->class_start_time,
                 'class_duration' => $request->class_duration
             ]);

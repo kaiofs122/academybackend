@@ -15,8 +15,8 @@ class TrainingExerciseTest extends TestCase
         $expected = [
             'id_training',
             'id_exercise',
-            'training_repetitions',
-            'training_series'
+            'training_exercises_repetitions',
+            'training_exercises_series'
         ];
 
         $arrayCompared = array_diff($expected, $trainingExercise->getFillable());

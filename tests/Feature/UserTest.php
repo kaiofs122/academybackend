@@ -20,7 +20,7 @@ class UserTest extends TestCase
     public function user_data_submission_test()
     {
         $data = [
-            'user_email' => 'user@user.com',
+            'user_email' => 'user2@user.com',
             'user_password' => '123456',
         ];
 

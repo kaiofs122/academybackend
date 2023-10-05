@@ -14,7 +14,7 @@ class ClassDateTest extends TestCase
 
         $expected = [
             'id_class',
-            'class_date',
+            'class_hour',
             'class_start_time',
             'class_duration'
         ];
