@@ -28,4 +28,26 @@ class NotificationInstructorTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+        
+    /** @test */
+    public function notification_instructor_data_update_test()
+    {
+        $data = [
+            'id_instructor' => '2',
+            'text_notification' => 'Notificação2',
+        ];
+
+        $response = $this->put('/api/v1/notificationsInstructors/2', $data);
+        
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function notification_instructor_data_deletion_test()
+    {
+        $response = $this->delete('/api/v1/notificationsInstructors/3');
+
+        $response->assertStatus(200);
+    }
 }

@@ -29,4 +29,26 @@ class ExerciseTest extends TestCase
 
         $response->assertStatus(200);
     }
+    
+        /** @test */
+        public function exercise_data_update_test()
+        {
+            $data = [
+                'exercise_name' => 'Exercício2',
+                'exercise_description' => 'Descrição2',
+                'exercise_url_tutorial' => 'Teste2',
+            ];
+    
+            $response = $this->put('/api/v1/exercises/2', $data);
+            
+            $response->assertStatus(200);
+        }
+    
+        /** @test */
+        public function exercise_data_deletion_test()
+        {
+            $response = $this->delete('/api/v1/exercises/3');
+    
+            $response->assertStatus(200);
+        }
 }

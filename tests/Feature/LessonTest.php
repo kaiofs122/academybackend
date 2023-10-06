@@ -29,4 +29,26 @@ class LessonTest extends TestCase
 
         $response->assertStatus(200);
     }
+    
+    /** @test */
+    public function lesson_data_update_test()
+    {
+        $data = [
+            'id_instructor' => '2',
+            'lesson_description' => 'Lição teste',
+            'lesson_max_students' => '50',
+        ];
+
+        $response = $this->put('/api/v1/lessons/2', $data);
+        
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function lesson_data_deletion_test()
+    {
+        $response = $this->delete('/api/v1/lessons/3');
+
+        $response->assertStatus(200);
+    }
 }

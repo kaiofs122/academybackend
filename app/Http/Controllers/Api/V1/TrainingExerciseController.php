@@ -98,8 +98,8 @@ class TrainingExerciseController extends Controller
             $trainingExercise = TrainingExercise::find($id)->update([
                 'id_training' => $request->id_training,
                 'id_exercise' => $request->id_exercise,
-                'training_exercises_repetitions' => $request->training_repetitions,
-                'training_exercises_series' => $request->training_series,
+                'training_exercises_repetitions' => $request->training_exercises_repetitions,
+                'training_exercises_series' => $request->training_exercises_series,
             ]);
             if ($trainingExercise) {
                 return response()->json([

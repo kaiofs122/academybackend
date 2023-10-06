@@ -29,4 +29,25 @@ class ReportTest extends TestCase
 
         $response->assertStatus(200);
     }
+    /** @test */
+    public function report_data_update_test()
+    {
+        $data = [
+            'id_instructor' => '2',
+            'id_student' => '2',
+            'description_reports' => 'Você precisa treinar menos!',
+        ];
+
+        $response = $this->put('/api/v1/reports/2', $data);
+        
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function report_data_deletion_test()
+    {
+        $response = $this->delete('/api/v1/reports/3');
+
+        $response->assertStatus(200);
+    }
 }

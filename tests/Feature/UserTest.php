@@ -28,4 +28,25 @@ class UserTest extends TestCase
 
         $response->assertStatus(200);
     }
+    
+    /** @test */
+    public function user_data_update_test()
+    {
+        $data = [
+            'user_email' => 'user2@user.com2',
+            'user_password' => '123456-2',
+        ];
+
+        $response = $this->put('/api/v1/users/1', $data);
+        
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function user_data_deletion_test()
+    {
+        $response = $this->delete('/api/v1/users/7');
+
+        $response->assertStatus(200);
+    }
 }

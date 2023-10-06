@@ -28,4 +28,24 @@ class TrainingTest extends TestCase
 
         $response->assertStatus(200);
     }
+    /** @test */
+    public function training_data_update_test()
+    {
+        $data = [
+            'id_instructor' => '2',
+            'id_student' => '2',
+        ];
+
+        $response = $this->put('/api/v1/trainings/2', $data);
+        
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function training_data_deletion_test()
+    {
+        $response = $this->delete('/api/v1/trainings/3');
+
+        $response->assertStatus(200);
+    }
 }

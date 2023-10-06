@@ -30,4 +30,29 @@ class ClassDateTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    /** @test */
+    public function class_date_data_update_test()
+    {
+        $data = [
+            'id_class' => '2',
+            'class_hour' => '14:00',
+            'class_start_time' => '14:01',
+            'class_duration' => '15:00',
+        ];
+
+        $response = $this->put('/api/v1/classesDates/4', $data);
+        
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function class_date_data_deletion_test()
+    {
+        $response = $this->delete('/api/v1/classesDates/3');
+
+        $response->assertStatus(200);
+    }
+    
 }
+

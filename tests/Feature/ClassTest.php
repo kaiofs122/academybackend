@@ -28,4 +28,25 @@ class ClassTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+        /** @test */
+        public function class_data_update_test()
+        {
+            $data = [
+                'id_lesson' => '2',
+                'id_student' => '2',
+            ];
+    
+            $response = $this->put('/api/v1/classes/4', $data);
+            
+            $response->assertStatus(200);
+        }
+    
+        /** @test */
+        public function class_data_deletion_test()
+        {
+            $response = $this->delete('/api/v1/classes/3');
+    
+            $response->assertStatus(200);
+        }
 }

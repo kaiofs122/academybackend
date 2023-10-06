@@ -28,4 +28,25 @@ class GeneralAssessmentTest extends TestCase
 
         $response->assertStatus(200);
     }
+        
+    /** @test */
+    public function general_assessment_data_update_test()
+    {
+        $data = [
+            'assessment_count' => '2',
+            'average_stars' => '3',
+        ];
+
+        $response = $this->put('/api/v1/generalAssessments/2', $data);
+        
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function general_assessment_data_deletion_test()
+    {
+        $response = $this->delete('/api/v1/generalAssessments/3');
+
+        $response->assertStatus(200);
+    }
 }
