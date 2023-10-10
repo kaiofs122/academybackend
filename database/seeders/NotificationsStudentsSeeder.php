@@ -4,18 +4,18 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\NotificationStudent;
 
-class UsersSeeder extends Seeder
+class NotificationsStudentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        User::create([
-            'user_email' => 'teste@hotmail.com',
-            'user_password' => bcrypt('12345678'),
+        NotificationStudent::create([
+            'id_student' => '1',
+            'text_notification' => 'Notificação de aluno',
         ]);
     }
 }

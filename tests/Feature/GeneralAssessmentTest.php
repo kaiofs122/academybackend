@@ -20,8 +20,9 @@ class GeneralAssessmentTest extends TestCase
     public function general_assessment_data_submission_test()
     {
         $data = [
+            'id_instructor_assessment' => '1',
             'assessment_count' => '1',
-            'average_stars' => '5',
+            'average_stars' => '5'
         ];
 
         $response = $this->post('/api/v1/generalAssessments', $data);
@@ -33,6 +34,7 @@ class GeneralAssessmentTest extends TestCase
     public function general_assessment_data_update_test()
     {
         $data = [
+            'id_instructor_assessment' => '1',
             'assessment_count' => '2',
             'average_stars' => '3',
         ];

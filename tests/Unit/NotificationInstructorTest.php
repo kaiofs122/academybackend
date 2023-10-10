@@ -8,7 +8,7 @@ use App\Models\NotificationInstructor;
 class NotificationInstructorTest extends TestCase
 {
     /** @test */
-    public function check_if_notificationInstructor_columns_is_correct(): void
+    public function check_if_notification_instructor_columns_is_correct(): void
     {
         $notificationInstructor= new NotificationInstructor;
 

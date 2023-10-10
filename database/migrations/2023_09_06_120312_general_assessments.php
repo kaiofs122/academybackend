@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('general_assessments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_instructor_assessment');
+            $table->foreign('id_instructor_assessment')->references('id')->on('instructors_assessments');
             $table->string('assessment_count');
             $table->string('average_stars');
             $table->timestamps();

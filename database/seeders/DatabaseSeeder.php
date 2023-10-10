@@ -20,7 +20,20 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            UsersSeeder::class
+            UsersSeeder::class,
+            InstructorsSeeder::class,
+            StudentsSeeder::class,
+            InstructorsAssessmentsSeeder::class,
+            NotificationsInstructorsSeeder::class,
+            GeneralAssessmentsSeeder::class,
+            ReportsSeeder::class,
+            NotificationsStudentsSeeder::class,
+            LessonsSeeder::class,
+            ClassesSeeder::class,
+            ClassesDatesSeeder::class,
+            ExercisesSeeder::class,
+            TrainingsSeeder::class,
+            TrainingsExercisesSeeder::class
         ]);
     }
 }

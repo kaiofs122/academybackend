@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\InstructorController;
 use App\Http\Controllers\Api\V1\ClassController;
 use App\Http\Controllers\Api\V1\ClassDateController;
 use App\Http\Controllers\Api\V1\ExerciseController;
+use App\Http\Controllers\Api\V1\InstructorAssessmentController;
 use App\Http\Controllers\Api\V1\GeneralAssessmentController;
 use App\Http\Controllers\Api\V1\LessonController;
 use App\Http\Controllers\Api\V1\NotificationInstructorController;
@@ -52,6 +53,15 @@ Route::prefix('v1')->group(function() {
     // Route::put('/exercises/{id}', [ExerciseController::class, 'edit']);
     Route::put('/exercises/{id}', [ExerciseController::class, 'update']);
     Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy']);
+
+    // ============================ InstructorAssessment ============================
+    Route::get('/instructorAssessments', [InstructorAssessmentController::class, 'index']);
+    // Route::post('/instructorlAssessments', [InstructorAssessmentController::class, 'create']);
+    Route::post('/instructorAssessments', [InstructorAssessmentController::class, 'store']);
+    Route::get('/instructorAssessments/{id}', [InstructorAssessmentController::class, 'show']);
+    // Route::put('/instructorAssessments/{id}', [InstructorAssessmentController::class, 'edit']);
+    Route::put('/instructorAssessments/{id}', [InstructorAssessmentController::class, 'update']);
+    Route::delete('/instructorAssessments/{id}', [InstructorAssessmentController::class, 'destroy']);
 
     // ============================ GeneralAssessment ============================
     Route::get('/generalAssessments', [GeneralAssessmentController::class, 'index']);
