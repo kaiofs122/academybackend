@@ -13,10 +13,11 @@ class LessonsSeeder extends Seeder
      */
     public function run(): void
     {
-        Lesson::create([
-            'id_instructor' => '1',
-            'lesson_description' => 'Teste de lição',
-            'lesson_max_students' => '10',
-        ]);
+        // Lesson::create([
+        //     'id_instructor' => '1',
+        //     'lesson_description' => 'Teste de lição',
+        //     'lesson_max_students' => '10',
+        // ]);
+        Lesson::factory(20)->create();
     }
 }

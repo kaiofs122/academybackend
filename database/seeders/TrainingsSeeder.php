@@ -13,9 +13,10 @@ class TrainingsSeeder extends Seeder
      */
     public function run(): void
     {
-        Training::create([
-            'id_instructor' => '1',
-            'id_student' => '1',
-        ]);
+        // Training::create([
+        //     'id_instructor' => '1',
+        //     'id_student' => '1',
+        // ]);
+        Training::factory(20)->create();
     }
 }

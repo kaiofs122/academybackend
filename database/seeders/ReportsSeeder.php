@@ -13,10 +13,11 @@ class ReportsSeeder extends Seeder
      */
     public function run(): void
     {
-        Report::create([
-            'id_instructor' => '1',
-            'id_student' => '1',
-            'description_reports' => 'Você precisa treinar mais!',
-        ]);
+        // Report::create([
+        //     'id_instructor' => '1',
+        //     'id_student' => '1',
+        //     'description_reports' => 'Você precisa treinar mais!',
+        // ]);
+        Report::factory(20)->create();
     }
 }

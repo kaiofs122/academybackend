@@ -13,9 +13,10 @@ class ClassesSeeder extends Seeder
      */
     public function run(): void
     {
-        ClassModel::create([
-            'id_lesson' => '1',
-            'id_student' => '1',
-        ]);
+        // ClassModel::create([
+        //     'id_lesson' => '1',
+        //     'id_student' => '1',
+        // ]);
+        ClassModel::factory(20)->create();
     }
 }

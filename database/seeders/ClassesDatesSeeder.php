@@ -13,11 +13,12 @@ class ClassesDatesSeeder extends Seeder
      */
     public function run(): void
     {
-        ClassDate::create([
-            'id_class' => '1',
-            'class_hour' => '12:00',
-            'class_start_time' => '12:01',
-            'class_duration' => '13:00',
-        ]);
+        // ClassDate::create([
+        //     'id_class' => '1',
+        //     'class_hour' => '12:00',
+        //     'class_start_time' => '12:01',
+        //     'class_duration' => '13:00',
+        // ]);
+        ClassDate::factory(20)->create();
     }
 }

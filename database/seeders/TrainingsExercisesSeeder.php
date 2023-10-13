@@ -13,11 +13,12 @@ class TrainingsExercisesSeeder extends Seeder
      */
     public function run(): void
     {
-        TrainingExercise::create([
-            'id_training' => '1',
-            'id_exercise' => '1',
-            'training_exercises_repetitions' => '5',
-            'training_exercises_series' => '10',
-        ]);
+        // TrainingExercise::create([
+        //     'id_training' => '1',
+        //     'id_exercise' => '1',
+        //     'training_exercises_repetitions' => '5',
+        //     'training_exercises_series' => '10',
+        // ]);
+        TrainingExercise::factory(20)->create();
     }
 }

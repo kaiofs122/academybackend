@@ -13,12 +13,13 @@ class InstructorsAssessmentsSeeder extends Seeder
      */
     public function run(): void
     {
-        InstructorAssessment::create([
-            'id_instructor' => '1',
-            'id_student' => '1',
-            'amount_stars_didatic' => '5',
-            'amount_stars_patience' => '4',
-            'amount_stars_charisma' => '3',
-        ]);
+        // InstructorAssessment::create([
+        //     'id_instructor' => '1',
+        //     'id_student' => '1',
+        //     'amount_stars_didatic' => '5',
+        //     'amount_stars_patience' => '4',
+        //     'amount_stars_charisma' => '3',
+        // ]);
+        InstructorAssessment::factory(20)->create();
     }
 }

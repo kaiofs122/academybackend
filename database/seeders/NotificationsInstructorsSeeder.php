@@ -13,9 +13,10 @@ class NotificationsInstructorsSeeder extends Seeder
      */
     public function run(): void
     {
-        NotificationInstructor::create([
-            'id_instructor' => '1',
-            'text_notification' => 'Notificação de teste',
-        ]);
+        // NotificationInstructor::create([
+        //     'id_instructor' => '1',
+        //     'text_notification' => 'Notificação de teste',
+        // ]);
+        NotificationInstructor::factory(20)->create();
     }
 }

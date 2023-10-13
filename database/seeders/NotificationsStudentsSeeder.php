@@ -13,9 +13,10 @@ class NotificationsStudentsSeeder extends Seeder
      */
     public function run(): void
     {
-        NotificationStudent::create([
-            'id_student' => '1',
-            'text_notification' => 'Notificação de aluno',
-        ]);
+        // NotificationStudent::create([
+        //     'id_student' => '1',
+        //     'text_notification' => 'Notificação de aluno',
+        // ]);
+        NotificationStudent::factory(20)->create();
     }
 }

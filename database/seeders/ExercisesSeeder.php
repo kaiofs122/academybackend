@@ -13,10 +13,11 @@ class ExercisesSeeder extends Seeder
      */
     public function run(): void
     {
-        Exercise::create([
-            'exercise_name' => 'Exercício',
-            'exercise_description' => 'Descrição',
-            'exercise_url_tutorial' => 'Teste',
-        ]);
+        // Exercise::create([
+        //     'exercise_name' => 'Exercício',
+        //     'exercise_description' => 'Descrição',
+        //     'exercise_url_tutorial' => 'Teste',
+        // ]);
+        Exercise::factory(20)->create();
     }
 }

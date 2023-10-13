@@ -13,10 +13,11 @@ class GeneralAssessmentsSeeder extends Seeder
      */
     public function run(): void
     {
-        GeneralAssessment::create([
-            'id_instructor_assessment' => '1',
-            'assessment_count' => '1',
-            'average_stars' => '5',
-        ]);
+        // GeneralAssessment::create([
+        //     'id_instructor_assessment' => '1',
+        //     'assessment_count' => '1',
+        //     'average_stars' => '5',
+        // ]);
+        GeneralAssessment::factory(20)->create();
     }
 }
