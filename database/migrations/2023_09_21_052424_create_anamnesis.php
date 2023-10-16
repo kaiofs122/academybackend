@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('student_physical_activities_restricitions');
             $table->string('student_smoker');
             $table->string('anamnesis_coments');
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->unsignedBigInteger('id_student');
+            $table->foreign('id_student')->references('id')->on('students');
             $table->unsignedBigInteger('id_instructor');
             $table->foreign('id_instructor')->references('id')->on('instructors');
             $table->timestamps();

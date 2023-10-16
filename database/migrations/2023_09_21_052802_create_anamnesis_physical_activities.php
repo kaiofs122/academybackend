@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('anamnesis_id');
             $table->foreign('anamnesis_id')->references('id')->on('anamnesis');
-            $table->unsignedBigInteger('physical_activitie_id');
-            $table->foreign('physical_activitie_id')->references('id')->on('student_physical_activities');
+            $table->unsignedBigInteger('physical_activity_id');
+            $table->foreign('physical_activity_id')->references('id')->on('student_physical_activities');
             $table->timestamps();
         });
     }

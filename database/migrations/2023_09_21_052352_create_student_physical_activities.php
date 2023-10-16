@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('student_physical_activities', function (Blueprint $table) {
             $table->id();
-            $table->string('physical_activitie_name');
-            $table->string('physical_activitie_frequency');
-            $table->string('physical_activitie_duration');
+            $table->string('physical_activity_name');
+            $table->string('physical_activity_frequency');
+            $table->string('physical_activity_duration');
             $table->timestamps();
         });
     }
