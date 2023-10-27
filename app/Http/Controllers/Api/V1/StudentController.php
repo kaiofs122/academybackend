@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Controllers\FirebaseController;
 
 class StudentController extends Controller
 {
@@ -17,7 +18,7 @@ class StudentController extends Controller
             return Student::all();
         } catch (\Exception $e){
             return response()->json([
-                "message" => 'Erro ao listar alunos: ' . $e->getMessage(),
+                "message" => 'Erro ao listar Alunos: ' . $e->getMessage(),
                 "status" => 400
             ], 400);
         }
@@ -56,13 +57,16 @@ class StudentController extends Controller
             $studentData = $request->all();
             $this->validate($request, $rules);
             $student = Student::create($studentData);
-            return response()->json([
-                "message" => 'Aluno criado com sucesso',
-                "status" => 200
-            ], 200);
+            $student_photo_url = FirebaseController::store($request);
+            if ($student) {
+                return response()->json([
+                    "message" => 'Aluno criado com sucesso',
+                    "status" => 200
+                ], 200);
+            }
         } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Erro ao criar aluno: ' . $e->getMessage(),
+                "message" => 'Erro ao criar Aluno: ' . $e->getMessage(),
                 "status" => 400
             ], 400);
         }
@@ -82,7 +86,7 @@ class StudentController extends Controller
             }
         } catch (\Exception $e){
             return response()->json([
-                "message" => 'Erro ao Exibir aluno: ' . $e->getMessage(),
+                "message" => 'Erro ao exibir Aluno: ' . $e->getMessage(),
                 "status" => 400
             ], 400);
         }
@@ -147,7 +151,7 @@ class StudentController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Erro ao atualizar aluno: ' . $e->getMessage(),
+                "message" => 'Erro ao atualizar Aluno: ' . $e->getMessage(),
                 "status" => 400
             ], 400);
         }
@@ -166,7 +170,7 @@ class StudentController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json([
-                "message" => 'Erro ao deletar aluno: ' . $e->getMessage(),
+                "message" => 'Erro ao deletar Aluno: ' . $e->getMessage(),
                 "status" => 400
             ], 400);
         }

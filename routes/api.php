@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\V1\NotificationStudentController;
 use App\Http\Controllers\Api\V1\ReportController;
 use App\Http\Controllers\Api\V1\TrainingController;
 use App\Http\Controllers\Api\V1\TrainingExerciseController;
+use App\Http\Controllers\FirebaseController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -23,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // ============================ ROTAS PARA A VERSÃO 1 DA API ============================
 Route::prefix('v1')->group(function() {
+
+    // ============================ TESTE FIREBASE ============================
+    Route::post('/testeFirebase', [FirebaseController::class, 'store']);
 
     // ============================ Class ============================
     Route::get('/classes', [ClassController::class, 'index']);
