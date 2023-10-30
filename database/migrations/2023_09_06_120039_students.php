@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_instructor');
             $table->foreign('id_instructor')->references('id')->on('instructors');
             $table->String('student_frequency');
-            $table->String('student_photo_url');
+            $table->longText('student_photo_url');
             $table->String('student_address');
             $table->String('student_address_number');
             $table->String('student_city');

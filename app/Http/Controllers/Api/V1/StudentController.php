@@ -46,18 +46,19 @@ class StudentController extends Controller
             'student_goal' => 'required',
             'id_instructor' => 'required',
             'student_frequency' => 'required',
-            'student_photo_url' => 'required',
             'student_address' => 'required',
             'student_address_number' => 'required',
             'student_city' => 'required',
             'student_zip_code' => 'required',
             'student_state' => 'required',
+            'photo' => 'required',
             ];
         try {
+            $student_photo_url = FirebaseController::store($request);
+            $request['student_photo_url'] = $student_photo_url;
             $studentData = $request->all();
             $this->validate($request, $rules);
             $student = Student::create($studentData);
-            $student_photo_url = FirebaseController::store($request);
             if ($student) {
                 return response()->json([
                     "message" => 'Aluno criado com sucesso',
