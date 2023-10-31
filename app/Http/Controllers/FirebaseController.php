@@ -13,7 +13,7 @@ class FirebaseController extends Controller
     public static function store(Request $request)
     {
         $firebase = (new Factory)
-            ->withServiceAccount('C:\Users\lucas\Documents\Projetos\Estágio\backend\academybackend\firebase-adminsdk.json')
+            ->withServiceAccount(env('FIREBASE_CREDENTIALS'))
             ->withDatabaseUri("https://estagio-academy-default-rtdb.firebaseio.com/");
 
         $database = $firebase->createDatabase();
