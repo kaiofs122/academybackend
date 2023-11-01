@@ -8,7 +8,7 @@ use App\Models\StudentPhysicalActivity;
 
 class StudentPhysicalActivityController extends Controller
 {
-    // ============== RETORNA TODOS AS ATIVIDADES FISICAS DOS ESTUDANTES ==============
+    // ============== RETORNA TODOS AS ATIVIDADES FISICAS DOS ALUNOS ==============
     public function index()
     {
         try {
@@ -29,12 +29,13 @@ class StudentPhysicalActivityController extends Controller
     }
     */
 
-    // ============== SALVA UMA NOVA ATIVIDADE FISICA DO ESTUDANTE ==============
+    // ============== SALVA UMA NOVA ATIVIDADE FISICA DO ALUNO ==============
     public function store(Request $request)
     {
         $rules = [
-            'symtom_name' => 'required',
-            'symtom_frequency' => 'required',
+            'physical_activity_name' => 'required',
+            'physical_activity_frequency' => 'required',
+            'physical_activity_duration' => 'required',
         ];
         try {
             $studentPhysicalActivityData = $request->all();
@@ -55,7 +56,7 @@ class StudentPhysicalActivityController extends Controller
         }
     }
 
-    // ============== EXIBE UM ATIVIDADE FISICA DO ESTUDANTE PELO ID ==============
+    // ============== EXIBE UM ATIVIDADE FISICA DO ALUNO PELO ID ==============
     public function show(string $id)
     {
         try {
@@ -82,18 +83,20 @@ class StudentPhysicalActivityController extends Controller
     }
     */
 
-    // ============== ATUALIZA UMA ATIVIDADE FISICA DO ESTUDANTE PELO ID ==============
+    // ============== ATUALIZA UMA ATIVIDADE FISICA DO ALUNO PELO ID ==============
     public function update(Request $request, string $id)
     {
         $rules = [
-            'symtom_name' => 'required',
-            'symtom_frequency' => 'required',
+            'physical_activity_name' => 'required',
+            'physical_activity_frequency' => 'required',
+            'physical_activity_duration' => 'required',
         ];
         try {
             $this->validate($request, $rules);
             $studentPhysicalActivity = StudentPhysicalActivity::find($id)->update([
-                'symtom_name' => $request->symtom_name,
-                'symtom_frequency' => $request->symtom_frequency,
+                'physical_activity_name' => $request->physical_activity_name,
+                'physical_activity_frequency' => $request->physical_activity_frequency,
+                'physical_activity_duration' => $request->physical_activity_duration
             ]);
             if ($studentPhysicalActivity) {
                 return response()->json([
@@ -110,7 +113,7 @@ class StudentPhysicalActivityController extends Controller
         }
     }
 
-    // ============== DELETA UMA ATIVIDADE FISICA DO ESTUDANTE PELO ID ==============
+    // ============== DELETA UMA ATIVIDADE FISICA DO ALUNO PELO ID ==============
     public function destroy(string $id)
     {
         try {
